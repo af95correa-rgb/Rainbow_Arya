@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Agendar Citas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Calificaciones.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos para centrar el contenedor del panel */
+        .centered-panel-container {
+            display: flex;
+            justify-content: left;
+            align-items: flex-start;
+            padding: 2rem 0;
+        }
+        
+        .form-container-card {
+            max-width: 1000px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+                <h1 class="rainbow-text">Veterinaria Rainbow ARYA</h1>
+            </div>
+            <nav class="nav-links">
+                <button id="back-to-dashboard-btn" class="button" onclick="location.href='index.html'">
+                    <i class="fas fa-home"></i> Volver al Dashboard
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+            
+            <h1 class="rainbow-text">
+                <i class="fas fa-check"></i> Calificaciones Usuario
+            </h1>
+            <p class="intro-text">Consulta de Calificaciones realizadas por el usuario</p>
+
+            <!-- CONTENEDOR CENTRADO CON EL PANEL -->
+            <div class="centered-panel-container">
+                <aside class="form-container-card">
+                    <h2>
+                        CALIFICACIONES
+                    </h2>
+                    
+                    <div id="appointments-list" class="data-table-container">
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Cargando lista de citas...</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna 
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL DEL SISTEMA -->
+    <div id="system-modal-backdrop" class="system-modal-backdrop">
+        <div id="system-modal" class="system-modal-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-message"></p>
+            <div id="modal-actions" class="modal-actions">
+                <!-- Botones del modal cargados dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="data.js"></script>
+    <script src="Calificaciones.js"></script>
+</body>
+</html>

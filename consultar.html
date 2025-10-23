@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Citas</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .consult-layout {
+            display: grid;
+            grid-template-columns: 1fr; /* Una columna para el contenido */
+            gap: 20px;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background-color: #f1f8ff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-controls .form-group {
+            flex: 1 1 200px; /* Permite que los filtros crezcan o se encojan */
+            min-width: 150px;
+            margin: 0;
+        }
+
+        /* Estilo para los grupos de citas por día */
+        .day-group {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .day-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Modificación al list-item para incluir estado */
+        .list-item-consult {
+            border-left: 5px solid;
+        }
+        .status-Programada { border-left-color: var(--primary-color); }
+        .status-Confirmada { border-left-color: var(--secondary-color); }
+        .status-Cancelada { border-left-color: var(--danger-color); opacity: 0.6; }
+
+        .cita-details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="home-nav"><a href="index.html">← Volver al Dashboard</a></div>
+        <header>
+            <h1>🗓️ Módulo Recepcionista: Consultar Citas</h1>
+        </header>
+
+        <section class="section-card consult-layout">
+            <h2>Filtros y Calendario (Criterio 1, 2)</h2>
+            <div class="filter-controls">
+                
+                <div class="form-group">
+                    <label for="filter-date">Fecha (Vista Diaria):</label>
+                    <input type="date" id="filter-date">
+                </div>
+                
+                <div class="form-group">
+                    <label for="filter-veterinario">Veterinario:</label>
+                    <select id="filter-veterinario">
+                        <option value="">Todos los Veterinarios</option>
+                        </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="filter-status">Estado:</label>
+                    <select id="filter-status">
+                        <option value="">Todos los Estados</option>
+                        <option value="Programada">Programada</option>
+                        <option value="Confirmada">Confirmada</option>
+                        <option value="Cancelada">Cancelada</option>
+                        <option value="Completada">Completada</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="search-term">Buscar Propietario/Mascota (Criterio 4):</label>
+                    <input type="text" id="search-term" placeholder="Nombre o Mascota">
+                </div>
+            </div>
+
+            <div id="calendar-view">
+                </div>
+            
+        </section>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="consultar.js"></script>
+</body>
+</html>

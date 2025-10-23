@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Módulo Administrativo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+                <h1 class="rainbow-text">Veterinaria Rainbow ARYA</h1>
+            </div>
+            <nav class="nav-links">
+                <button class="button" onclick="location.href='index.html'">
+                    <i class="fas fa-home"></i> Volver al Dashboard
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+            
+            <h1 class="rainbow-text">
+                <i class="fas fa-user-shield"></i> Módulo Administrativo
+            </h1>
+            <p class="intro-text">Gestione catálogos, genere reportes y administre usuarios del sistema.</p>
+
+            <!-- SISTEMA DE PESTAÑAS -->
+            <section class="admin-card">
+                <div class="admin-tabs">
+                    <button class="tab-button active" data-tab="catalogos">
+                        <i class="fas fa-box"></i> Catálogos
+                    </button>
+                    <button class="tab-button" data-tab="reportes">
+                        <i class="fas fa-chart-line"></i> Reportes
+                    </button>
+                    <button class="tab-button" data-tab="usuarios">
+                        <i class="fas fa-users"></i> Usuarios
+                    </button>
+                </div>
+
+                <!-- PESTAÑA: CATÁLOGOS -->
+                <div id="catalogos" class="tab-content active">
+                    <h2>
+                        <i class="fas fa-boxes"></i> Catálogo de Productos y Servicios
+                    </h2>
+                    <p class="tab-description">
+                        Modifique precios y tasas de impuestos. Los cambios afectan Facturación y Agendamiento.
+                    </p>
+                    
+                    <div class="catalogue-header catalogue-item">
+                        <span><strong>Nombre (ID)</strong></span>
+                        <span><strong>Tipo</strong></span>
+                        <span><strong>P. Venta</strong></span>
+                        <span><strong>Impuesto (%)</strong></span>
+                        <span class="text-right"><strong>Acción</strong></span>
+                    </div>
+
+                    <div id="catalogue-list" class="catalogue-container">
+                        <!-- Items cargados dinámicamente -->
+                    </div>
+
+                    <button id="add-new-item-btn" class="button secondary btn-add-catalog">
+                        <i class="fas fa-plus"></i> Agregar Nuevo Ítem
+                    </button>
+                </div>
+
+                <!-- PESTAÑA: REPORTES -->
+                <div id="reportes" class="tab-content">
+                    <h2>
+                        <i class="fas fa-file-invoice-dollar"></i> Reportes Financieros y Citas
+                    </h2>
+                    
+                    <div class="form-group">
+                        <label for="report-type">
+                            <i class="fas fa-filter"></i> Seleccionar Reporte:
+                        </label>
+                        <select id="report-type" class="custom-select">
+                            <option value="summary">Resumen General de Ingresos</option>
+                            <option value="appointments">Citas por Veterinario</option>
+                        </select>
+                    </div>
+
+                    <div id="report-output" class="report-container">
+                        <div class="empty-report">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Genere un reporte para visualizar los datos.</p>
+                        </div>
+                    </div>
+
+                    <button id="generate-report-btn" class="button primary">
+                        <i class="fas fa-sync-alt"></i> Generar Reporte
+                    </button>
+                </div>
+
+                <!-- PESTAÑA: USUARIOS -->
+                <div id="usuarios" class="tab-content">
+                    <h2>
+                        <i class="fas fa-users-cog"></i> Gestión de Usuarios
+                    </h2>
+                    <p class="tab-description">
+                        Administre los usuarios del sistema y sus roles asignados.
+                    </p>
+
+                    <div class="users-container">
+                        <!-- Usuarios cargados dinámicamente -->
+                    </div>
+
+                    <button class="button secondary">
+                        <i class="fas fa-user-plus"></i> Crear Nuevo Usuario
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna 
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL DEL SISTEMA -->
+    <div id="system-modal-backdrop" class="system-modal-backdrop">
+        <div id="system-modal" class="system-modal-content">
+            <h3 id="modal-title">Título del Modal</h3>
+            <p id="modal-message">Mensaje del sistema</p>
+            <div id="modal-actions" class="modal-actions">
+                <!-- Botones del modal cargados dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

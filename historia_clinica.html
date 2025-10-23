@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Gestión de Historia Clínica</title>
+    <!-- NOTA: styles.css debe definir las variables de color y los estilos base (.button, .container, .form-group, etc.) -->
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="historia_clinica.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="container header-container">
+           <div class="container header-container">
+            <div class="logo-container">
+                <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+                <h1 class="rainbow-text">Veterinaria Rainbow ARYA</h1>
+            </div>
+            <nav class="nav-links">
+                <button id="back-to-dashboard-btn" class="button" onclick="location.href='index.html'">
+                    <i class="fas fa-home"></i> Volver al Dashboard
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+
+            <h1 class="rainbow-text">
+                <i class="fas fa-file-medical-alt"></i> Gestión de Historia Clínica
+            </h1>
+            <p class="intro-text">
+                Busque o cree el registro de un paciente y acceda a su historial completo.
+            </p>
+
+            <!-- LAYOUT PRINCIPAL: BÚSQUEDA + HISTORIAL -->
+            <div class="historia-layout">
+
+                <!-- PANEL IZQUIERDO: BÚSQUEDA Y NUEVO PACIENTE -->
+                <aside class="form-container-card">
+                    <h2>
+                        <i class="fas fa-search"></i> Búsqueda de Paciente
+                    </h2>
+
+                    <form id="search-form">
+                        <div class="form-group">
+                            <label for="pet-search">
+                                <i class="fas fa-dog icon-label"></i> Buscar Mascota:
+                            </label>
+                            <input type="text" id="pet-search" placeholder="Nombre de la mascota o ID"
+                                autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="owner-search">
+                                <i class="fas fa-user icon-label"></i> Buscar Propietario:
+                            </label>
+                            <input type="text" id="owner-search" placeholder="Cédula o Nombre del Propietario"
+                                autocomplete="off">
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="button danger" id="reset-search-btn">
+                                <i class="fas fa-eraser"></i> Limpiar
+                            </button>
+                            <button type="submit" class="button primary">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </form>
+
+                    <h2 class="section-title">
+                        <i class="fas fa-plus-circle"></i> Nuevo Paciente
+                    </h2>
+                    <p class="section-description">
+                        Si la búsqueda no arrojó resultados, registre un nuevo paciente.
+                    </p>
+                    <button type="button" class="button primary btn-full-width" id="open-new-patient-modal-btn">
+                        <i class="fas fa-plus"></i> Abrir Formulario
+                    </button>
+                </aside>
+
+                <!-- PANEL DERECHO: HISTORIAL CLÍNICO -->
+                <section class="history-display-card">
+                    <h2>
+                        <i class="fas fa-clipboard-list"></i> Historial Completo
+                    </h2>
+
+                    <div id="patient-history-details" class="data-view-container">
+                        <div id="records-history-list">
+                            <div class="empty-state">
+                                <i class="fas fa-info-circle"></i>
+                                <p>
+                                    Utilice el panel izquierdo para buscar y seleccionar una mascota.
+                                    Su historial clínico aparecerá aquí.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL: NUEVO PACIENTE -->
+    <div id="patient-modal-backdrop" class="modal-overlay">
+        <div class="modal-content modal-custom-size">
+            <h2>
+                <i class="fas fa-paw"></i> Registrar Nuevo Paciente
+            </h2>
+
+            <form id="new-patient-form">
+
+                <!-- INFORMACIÓN BÁSICA -->
+                <div class="form-grid-2">
+                    <div class="form-group" id="modal-message">
+                        <label for="patient-name">Nombre de la Mascota:</label>
+                        <input type="text" id="patient-name" required placeholder="Ej: Max" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-owner">Propietario (Nombre Completo):</label>
+                        <!-- Usamos un input para simular la búsqueda o creación de un propietario si la lista es grande -->
+                        <input type="text" id="patient-owner" list="owner-options" required placeholder="Nombre o ID del Propietario" autocomplete="off">
+                        <datalist id="owner-options">
+                            <!-- Opciones cargadas dinámicamente por JS/data.js -->
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- DETALLES DEL PACIENTE -->
+                <div class="form-grid-3">
+                    <div class="form-group">
+                        <label for="patient-species">Especie:</label>
+                        <select id="patient-species" required class="custom-select">
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Canino">Canino</option>
+                            <option value="Felino">Felino</option>
+                            <option value="Ave">Ave</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-breed">Raza:</label>
+                        <input type="text" id="patient-breed" placeholder="Ej: Labrador" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-birthdate">Fecha de Nacimiento:</label>
+                        <input type="date" id="patient-birthdate">
+                    </div>
+                </div>
+
+                <!-- BOTONES DEL MODAL: CLASE CORREGIDA -->
+                <div class="button-group modal-buttons">
+                    <button type="button" class="button secondary" onclick="closeModal('patient-modal-backdrop')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="button primary">
+                        <i class="fas fa-save"></i> Guardar Paciente
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <!-- Se asume que data.js y historia_clinica.js están en la misma carpeta -->
+    <script src="data.js"></script>
+    <script src="historia_clinica.js"></script>
+</body>
+
+</html>

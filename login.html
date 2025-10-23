@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Acceso Interno</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-card">
+        <div class="logo-container">
+            <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+        </div>
+        
+        <h1 class="rainbow-text">Veterinaria Rainbow Arya</h1>
+        <p style="margin-bottom: 25px;">Acceso exclusivo para personal de gestión interna.</p>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username"><i class="fas fa-user"></i> Usuario:</label>
+                <input type="text" id="username" required placeholder="Ej: admin / recepcionista">
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Contraseña:</label>
+                <input type="password" id="password" required value="123456" placeholder="123456">
+            </div>
+            <button type="submit" style="background-color: var(--arya-blue);">
+                <i class="fas fa-sign-in-alt"></i> Entrar al Dashboard
+            </button>
+        </form>
+
+        <a href="usuario.html" class="external-link">
+            <i class="fas fa-paw"></i> **Portal Clientes**: Regístrate o accede a tu cuenta de propietario
+        </a>
+    </div>
+
+    <div id="notification-modal" class="modal-overlay">
+        <div class="modal-content">
+            <i id="modal-icon" class="icon-large fas fa-check-circle"></i>
+            <h2 id="modal-title">¡Éxito!</h2>
+            <p id="modal-message">Mensaje del sistema.</p>
+            <button id="modal-close-btn">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>

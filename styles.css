@@ -1,0 +1,555 @@
+/* --- styles.css: Look & Feel Final de ARYA V2.3 (Modal System Implementado & Responsive) --- */
+
+/* --- 1. Variables de Color, Tipografía e Iconografía --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    /* Paleta de Colores ARYA (Basada en el Rainbow Logo) */
+    --arya-primary: #8e44ad; 	 /* Púrpura Profundo (Marca Principal) */
+    --arya-secondary: #2ecc71; 	 /* Verde Esmeralda (Éxito, Confirmación) */
+    --arya-blue: #3498db; 	 	 /* Azul Cielo (Información, Enlaces) */
+    --arya-accent: #f1c40f; 	 /* Amarillo Sol (Alerta, Destacado) */
+    
+    --arya-dark: #2c3e50; 	 	 /* Texto y fondos oscuros */
+    --arya-light: #ecf0f1; 	 	 /* Fondo claro principal (para el dashboard) */
+    --card-bg: #ffffff; 	 	 /* Fondo de las tarjetas internas */
+    --danger-color: #e74c3c; 	 /* Rojo para peligro/cancelar */
+
+    /* Nuevos colores del Header/Footer */
+    --header-bg: #111111; 	 	 /* Fondo del header en negro */
+    --footer-bg: #1c2833; 	 	 /* Fondo del footer */
+    --header-text: #f0f0f0; 	 /* Texto claro para el header */
+
+    /* COLORES DE AUTENTICACIÓN (LOGIN/REGISTRO) */
+    --auth-card-bg: rgba(28, 29, 31, 1); /* Color oscuro exacto del logo */
+    --auth-text-light: #ffffff;
+    --auth-page-bg-light: #f7f9fc; /* Fondo claro para que la tarjeta resalte */
+
+    /* Fuentes */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    
+    /* Efectos de Sombra */
+    --shadow-subtle: 0 4px 10px rgba(0, 0, 0, 0.08);
+    --shadow-lift: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* --- 2. Reset y Estilos Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--arya-light);
+    color: var(--arya-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* Padding por defecto en escritorio */
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--arya-dark);
+}
+h2 { border-bottom: 2px solid var(--arya-accent); padding-bottom: 8px; margin-bottom: 20px;}
+
+
+/* --- 3. Logo y Cabeceras --- */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.arya-logo {
+    height: 60px; /* Ajuste el tamaño por defecto del logo para que no sea excesivamente grande */
+    width: auto;
+    transition: transform 0.3s ease;
+}
+.arya-logo:hover {
+    transform: scale(1.05);
+}
+
+
+/* --- 4. HEADER Y FOOTER GLOBALES --- */
+.app-header {
+    background-color: rgba(28, 29, 31);
+    color: var(--header-text);
+    padding: 10px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.app-header .logo-container {
+    padding: 0 20px;
+    margin: 0;
+    gap: 10px;
+}
+.app-header h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+.app-header .nav-links {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.app-footer {
+    background-color: rgba(28, 29, 31);
+    color: #ccc;
+    padding: 20px 0;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9em;
+}
+.app-footer a {
+    color: var(--arya-secondary);
+    text-decoration: none;
+}
+
+/* --- 5. REDISEÑO DE LOGIN Y REGISTRO (TEMA OSCURO/CLARO) --- */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--auth-page-bg-light); /* FONDO CLARO */
+}
+.auth-card {
+    background-color: var(--auth-card-bg); /* FONDO OSCURO (rgba(28, 29, 31)) */
+    color: var(--auth-text-light); /* TEXTO CLARO */
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border-top: 5px solid var(--arya-primary); 
+    transition: transform 0.3s ease;
+}
+.auth-card:hover {
+    transform: translateY(-5px);
+}
+.auth-card .logo-container {
+    justify-content: center;
+    margin-bottom: 15px; /* Pequeño espacio antes del título */
+    gap: 0;
+}
+.auth-card .arya-logo {
+    height: 100px; /* LOGO MÁS GRANDE */
+}
+
+/* EFECTO ARCOÍRIS */
+.rainbow-text {
+    /* Colores del logo: Púrpura, Azul, Verde, Amarillo */
+    background: linear-gradient(
+        45deg,
+        #8e44ad, /* Púrpura */
+        #3498db, /* Azul */
+        #2ecc71, /* Verde */
+        #f1c40f 	/* Amarillo */
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Hace que el texto sea transparente para que el fondo sea visible */
+    display: inline-block;
+    font-weight: 800; /* Hace que el efecto sea más visible */
+    font-size: 2.2em;
+    margin-bottom: 5px;
+}
+
+.auth-card h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+.auth-card p {
+    color: #cccccc; 
+}
+
+/* Ajuste de formularios y botones dentro de la tarjeta oscura */
+.form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.form-group input {
+    background-color: #3e4d5a; 
+    border: 1px solid #5a6e80;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+/* Aumento de separación del botón de login */
+.auth-card button {
+    width: 100%;
+    margin-top: 30px; /* Separación de la contraseña */
+}
+
+.auth-card .external-link {
+    display: block;
+    margin-top: 40px; /* Separación del botón */
+    color: var(--arya-secondary); 
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+.auth-card .external-link:hover {
+    color: var(--arya-blue);
+}
+
+/* --- 6. Estilos Generales de Componentes (Tarjetas, Botones, etc.) --- */
+.section-card {
+    background-color: var(--card-bg);
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 6px solid var(--arya-primary);
+}
+/* Botones */
+button {
+    background-color: var(--arya-primary);
+    color: var(--card-bg);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px; 
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* NEW: Dashboard Grid Layout for Summary Cards */
+.dashboard-grid {
+    display: grid;
+    /* Por defecto, 3 columnas en escritorio */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Dashboard Summary Cards */
+.summary-card {
+    background: var(--card-bg); 
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid #ddd;
+}
+.summary-card:hover {
+    transform: translateY(-3px);
+}
+.summary-card .value {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-top: 5px;
+    color: var(--arya-dark);
+}
+.summary-card[data-color="blue"] { border-left: 5px solid var(--arya-blue); }
+.summary-card[data-color="orange"] { border-left: 5px solid var(--arya-accent); }
+.summary-card[data-color="purple"] { border-left: 5px solid var(--arya-primary); }
+
+
+/* --- 7. MODAL DE NOTIFICACIÓN GLOBAL --- */
+.modal-overlay {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
+    backdrop-filter: blur(4px); /* Efecto de desenfoque */
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: var(--auth-card-bg); /* Fondo oscuro de la tarjeta */
+    color: var(--auth-text-light);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border-top: 5px solid var(--arya-secondary); /* Borde verde de éxito */
+    animation: slideDown 0.4s ease-out;
+}
+
+.modal-content h2 {
+    color: var(--arya-accent); /* Título de modal en color de acento */
+    margin-top: 0;
+    margin-bottom: 15px;
+    /* Asegurar que el h2 sea blanco o claro en el modal oscuro */
+    color: var(--auth-text-light);
+    border-bottom: none; 
+}
+
+.modal-content .icon-large {
+    font-size: 4em;
+    color: var(--arya-secondary);
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    margin-top: 20px;
+    width: 60%;
+    background-color: var(--arya-secondary); /* Botón de acción en verde */
+}
+.modal-content button:hover {
+    background-color: #27ae60;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* =================================================================
+    9. MODAL DE SISTEMA (Reemplaza alert/confirm) - ESTILOS CORREGIDOS
+    ================================================================= */
+.system-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+.system-modal-content {
+    /* Fondo blanco de tarjeta */
+    background-color: var(--card-bg); 
+    color: var(--arya-dark); /* Texto oscuro */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra más fuerte */
+    max-width: 400px;
+    width: 90%;
+    /* Dejamos la alineación en left para que los detalles de factura se lean bien. */
+    text-align: left; 
+    border-top: 5px solid var(--arya-primary); /* El JS setea este color */
+    animation: slideDown 0.4s ease-out;
+}
+
+.system-modal-content h3 {
+    color: var(--arya-dark);
+    margin-top: 0;
+    font-size: 1.5em;
+    margin-bottom: 15px; 
+    display: block; 
+    text-align: center; /* Centrar título */
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--arya-light);
+    font-weight: 700;
+}
+
+.system-modal-content p {
+    color: var(--arya-dark);
+    /* margin-bottom: 25px; */
+    /* ESTO ES CLAVE: Permite que el texto se mantenga legible con saltos de línea */
+    white-space: pre-line; 
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px;
+}
+
+.modal-actions button {
+    margin: 0; 
+    min-width: 100px;
+    border-radius: 8px; 
+}
+
+/* 💡 CORRECCIÓN ADICIONAL PARA EL BOTÓN PRINCIPAL: 
+   Asegurar que el botón "Aceptar/Cerrar" use el color principal (morado) 
+   para el modo 'primary' dentro del modal, si no es una confirmación danger. */
+.modal-actions button.primary {
+    background-color: var(--arya-primary);
+}
+.modal-actions button.primary:hover {
+    background-color: #7d3c9a; /* Un poco más oscuro */
+}
+
+.modal-icon {
+    margin-right: 10px;
+    color: var(--arya-primary); 
+}
+
+/* =================================================================
+ 	10. MEDIA QUERIES (RESPONSIVE DESIGN)
+ 	================================================================= */
+
+/* ----------------------------------
+ * 1. Tablet y Portátiles Pequeños (Hasta 1024px)
+ * ---------------------------------- */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 960px;
+        padding: 0 15px; /* Ligeramente menos padding lateral */
+    }
+
+    /* Reducir a 2 columnas para el dashboard */
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .summary-card {
+        padding: 20px;
+    }
+    
+    .summary-card .value {
+        font-size: 2.2em; /* Reducir tamaño de valor */
+    }
+}
+
+
+/* ----------------------------------
+ * 2. Teléfonos Grandes y Tablets Pequeñas (Hasta 768px)
+ * ---------------------------------- */
+@media (max-width: 768px) {
+    /* Layout Base */
+    body {
+        font-size: 15px;
+    }
+    
+    /* Header Responsive: Apilar logo y navegación */
+    .app-header {
+        flex-direction: column; 
+        align-items: flex-start;
+        padding: 10px 0;
+    }
+    .app-header .logo-container { 
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+    .app-header .arya-logo { 
+        height: 50px; 
+    }
+    .app-header h1 { 
+        font-size: 1.2em; 
+    }
+    /* Mover los enlaces de navegación a una fila inferior */
+    .app-header .nav-links { 
+        width: 100%;
+        justify-content: space-around; /* Distribuir uniformemente */
+        padding: 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 5px;
+    }
+    .app-header .nav-links span { 
+        display: none; /* Ocultar el texto de saludo para ahorrar espacio */
+    }
+    .app-header .nav-links button { 
+        font-size: 0.9em; 
+        padding: 8px 15px; 
+    }
+
+    /* Dashboard Grid: 1 Columna en móvil */
+    .dashboard-grid {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+    
+    .section-card {
+        padding: 20px;
+    }
+    
+    /* Auth Card (Móviles) */
+    .auth-card { 
+        padding: 30px; 
+        max-width: 90%; 
+    }
+    .auth-card .arya-logo { 
+        height: 80px; 
+    }
+}
+
+
+/* ----------------------------------
+ * 3. Teléfonos Pequeños (Hasta 480px)
+ * ---------------------------------- */
+@media (max-width: 480px) {
+    body {
+        font-size: 0.9em; /* Ligeramente más pequeño */
+    }
+    
+    .container {
+        padding: 0 10px; /* Reducir aún más el padding lateral */
+    }
+    
+    /* Auth Card más compacto */
+    .auth-card {
+        padding: 25px 20px;
+    }
+    .auth-card .rainbow-text {
+        font-size: 1.8em;
+    }
+    .auth-card .arya-logo { 
+        height: 70px; 
+    }
+
+    /* Header más compacto */
+    .app-header .arya-logo { 
+        height: 40px; 
+    }
+    .app-header h1 { 
+        font-size: 1.1em; 
+    }
+    
+    /* Botones más pequeños */
+    button {
+        font-size: 0.9em;
+        padding: 10px 18px;
+    }
+
+    .app-footer {
+        padding: 15px 10px;
+        font-size: 0.8em;
+    }
+}

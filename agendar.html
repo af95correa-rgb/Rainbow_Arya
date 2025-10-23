@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Agendar Citas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="agendar.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+                <h1 class="rainbow-text">Veterinaria Rainbow ARYA</h1>
+            </div>
+            <nav class="nav-links">
+                <button id="back-to-dashboard-btn" class="button" onclick="location.href='index.html'">
+                    <i class="fas fa-home"></i> Volver al Dashboard
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+            
+            <h1 class="rainbow-text">
+                <i class="fas fa-calendar-alt"></i> Agendamiento de Citas
+            </h1>
+            <p class="intro-text">Utilice el formulario para programar una nueva consulta o servicio.</p>
+
+            <!-- LAYOUT PRINCIPAL: FORMULARIO + LISTA DE CITAS -->
+            <div class="agendar-layout">
+
+                <!-- PANEL IZQUIERDO: FORMULARIO DE NUEVA CITA -->
+                <aside class="form-container-card">
+                    <h2>
+                        <i class="fas fa-notes-medical"></i> Nueva Cita
+                    </h2>
+                    
+                    <form id="appointment-form">
+                        
+                        <!-- FECHA Y HORA -->
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="date">
+                                    <i class="fas fa-calendar-day icon-label"></i> Fecha:
+                                </label>
+                                <input type="date" id="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">
+                                    <i class="fas fa-clock icon-label"></i> Hora Inicio:
+                                </label>
+                                <input type="time" id="time" required>
+                            </div>
+                        </div>
+
+                        <!-- VETERINARIO Y SERVICIO -->
+                        <div class="form-group">
+                            <label for="veterinarian">
+                                <i class="fas fa-user-md icon-label"></i> Veterinario Asignado:
+                            </label>
+                            <select id="veterinarian" class="custom-select" required>
+                                <option value="" disabled selected>Seleccione un Veterinario</option>
+                                <!-- Opciones cargadas dinámicamente -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">
+                                <i class="fas fa-hand-holding-medical icon-label"></i> Tipo de Servicio:
+                            </label>
+                            <select id="type" class="custom-select" required>
+                                <option value="" disabled selected>Seleccione Tipo de Servicio</option>
+                                <!-- Opciones cargadas dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <!-- DATOS DEL PACIENTE -->
+                        <h3 class="section-subtitle">
+                            <i class="fas fa-paw"></i> Datos del Paciente
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="owner">
+                                <i class="fas fa-address-book icon-label"></i> Propietario:
+                            </label>
+                            <select id="owner" class="custom-select" required>
+                                <option value="" disabled selected>Buscar Propietario</option>
+                                <!-- Opciones cargadas dinámicamente -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pet">
+                                <i class="fas fa-dog icon-label"></i> Nombre Mascota:
+                            </label>
+                            <input 
+                                type="text" 
+                                id="pet" 
+                                required 
+                                placeholder="Ej: Max, Luna, Toby"
+                                autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">
+                                <i class="fas fa-pencil-alt icon-label"></i> Notas:
+                            </label>
+                            <textarea 
+                                id="notes" 
+                                placeholder="Describa brevemente el motivo de la consulta..." 
+                                rows="3"></textarea>
+                        </div>
+
+                        <!-- BOTONES DE ACCIÓN -->
+                        <div class="button-group form-actions">
+                            <button 
+                                type="button" 
+                                class="button danger" 
+                                id="clear-form-btn">
+                                <i class="fas fa-trash-restore"></i> Borrar
+                            </button>
+                            <button type="submit" class="button primary">
+                                <i class="fas fa-save"></i> Agendar
+                            </button>
+                        </div>
+                    </form>
+                </aside>
+
+                <!-- PANEL DERECHO: LISTA DE CITAS AGENDADAS -->
+                <section class="appointments-list-card">
+                    <h2>
+                        <i class="fas fa-calendar-check"></i> Próximas Citas
+                    </h2>
+                    
+                    <div id="appointments-list" class="data-table-container">
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Cargando lista de citas...</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna 
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL DEL SISTEMA -->
+    <div id="system-modal-backdrop" class="system-modal-backdrop">
+        <div id="system-modal" class="system-modal-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-message"></p>
+            <div id="modal-actions" class="modal-actions">
+                <!-- Botones del modal cargados dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="data.js"></script>
+    <script src="agendar.js"></script>
+</body>
+</html>

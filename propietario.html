@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Registro Asistido</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="propietario.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- MODAL GLOBAL --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-actions .button {
+            min-width: 80px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    
+<header class="app-header">
+    <div class="container header-container">
+        <div class="logo-container">
+            <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+            <h1 class="rainbow-text">Veterinaria Rainbow ARYA</h1>
+        </div>
+        <nav class="nav-links">
+            <button id="back-to-dashboard-btn" class="button" onclick="location.href='index.html'">
+                <i class="fas fa-home"></i> Volver al Dashboard
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        
+        <h1 class="rainbow-text">
+            <i class="fas fa-user-plus"></i> Módulo de Registro Asistido
+        </h1>
+
+        <p class="intro-text">
+            Utilice esta herramienta para registrar rápidamente nuevos propietarios y sus mascotas durante una llamada o en la recepción.
+        </p>
+
+        <div class="propietario-layout">
+
+            <aside class="form-container-card">
+                <h2><i class="fas fa-id-card"></i> Nuevo Propietario / Mascota</h2>
+                
+                <form id="assisted-registration-form"> 
+                    
+                    <div class="section-subtitle"><i class="fas fa-user"></i> Datos del Propietario</div>
+                    
+                    <div class="form-group">
+                        <label for="reg-name">NOMBRE:</label>
+                        <input type="text" id="reg-name" required placeholder="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-lastname">APELLIDO:</label>
+                        <input type="text" id="reg-lastname" required placeholder="Apellido"> 
+                    </div>
+                     <div class="form-group">
+                        <label for="reg-age">EDAD:</label>
+                        <input type="number" id="reg-age" min="18" max="100" placeholder="Ej: 30" required> 
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-phone">TELÉFONO:</label>
+                        <input type="tel" id="reg-phone" required placeholder="+57 XXX XXX XXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">CORREO (Usuario):</label>
+                        <input type="email" id="reg-email" required placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Contraseña Inicial:</label>
+                        <input type="password" id="reg-password" required placeholder="Mínimo 6 caracteres"> 
+                    </div>
+                    
+                    <div class="section-subtitle"><i class="fas fa-paw"></i> Datos de la Mascota</div>
+                    
+                    <div class="form-group">
+                        <label for="pet-name">NOMBRE MASCOTA:</label>
+                        <input type="text" id="pet-name" required placeholder="Ej: Rocky">
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-type">TIPO (Especie):</label>
+                        <select id="pet-type" required> 
+                            <option value="" disabled selected>Seleccione...</option>
+                            <option value="Felino">FELINO</option>
+                            <option value="Canino">CANINO</option>
+                            <option value="Ave">AVE</option>
+                            <option value="Exotico">EXOTICO</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-age">EDAD MASCOTA (Años):</label>
+                        <input type="number" id="pet-age" min="0" required placeholder="Ej: 5"> 
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-color">COLOR:</label>
+                        <input type="text" id="pet-color" placeholder="Ej: Blanco y Negro"> 
+                    </div>
+                    
+                    <button type="submit" class="button primary btn-full-width" style="margin-top: 20px;">
+                        <i class="fas fa-save"></i> Registrar Propietario y Mascota
+                    </button>
+                </form>
+            </aside>
+            
+            <!-- PANEL DERECHO: CLIENTES RECIENTES -->
+            <section class="data-list-card">
+                <h2>
+                    <i class="fas fa-users"></i> Clientes Recientes
+                </h2>
+                
+                <!-- Contenedor donde se inyectará la tabla dinámicamente -->
+                <div id="invoices-list" class="data-table-container">
+                    <!-- La tabla se genera desde propietario.js -->
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<footer class="app-footer">
+    <div class="container">
+        <p>
+            &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna 
+        </p>
+    </div>
+</footer>
+
+<!-- MODAL REUTILIZABLE -->
+<div id="system-modal-backdrop" class="modal-backdrop">
+    <div id="system-modal" class="modal-content">
+        <h3 id="modal-title">Título</h3>
+        <p id="modal-message">Mensaje</p>
+        <div id="modal-actions" class="modal-actions"></div>
+    </div>
+</div>
+
+<script src="data.js"></script> 
+<script src="propietario.js"></script> 
+</body>
+</html>

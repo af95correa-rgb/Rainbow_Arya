@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Registro de Usuario y Mascota</title>
+    <link rel="stylesheet" href="styles.css"> <link rel="stylesheet" href="usuario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-card" style="max-width: 800px;">
+        <div class="logo-container">
+            <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+        </div>
+        
+        <h1 class="rainbow-text">Registro de Propietario y Mascota</h1>
+        <p style="margin-bottom: 25px;">
+            ¡Bienvenido! Completa tus datos y los de tu mascota.
+        </p>
+
+        <form id="full-registration-form">
+            <div class="section-title-container">
+                <h2 class="section-title-small"><i class="fas fa-user-circle"></i> Datos del Propietario</h2>
+            </div>
+            
+            <div class="form-grid-3">
+                <div class="form-group">
+                    <label for="reg-name"><i class="fas fa-user"></i> Nombre:</label>
+                    <input type="text" id="reg-name" required placeholder="Tu Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="reg-lastname"><i class="fas fa-user-tag"></i> Apellido:</label>
+                    <input type="text" id="reg-lastname" required placeholder="Tu Apellido">
+                </div>
+                <div class="form-group">
+                    <label for="reg-age"><i class="fas fa-birthday-cake"></i> Edad:</label>
+                    <input type="number" id="reg-age" required min="18" max="120" placeholder="Edad">
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label for="reg-email"><i class="fas fa-envelope"></i> Correo Electrónico (Usuario):</label>
+                    <input type="email" id="reg-email" required placeholder="ejemplo@correo.com">
+                </div>
+                <div class="form-group">
+                    <label for="reg-phone"><i class="fas fa-phone"></i> Teléfono:</label>
+                    <input type="tel" id="reg-phone" required placeholder="+57 3XX XXX XXXX">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="reg-password"><i class="fas fa-key"></i> Contraseña:</label>
+                <input type="password" id="reg-password" required placeholder="Mínimo 6 caracteres">
+            </div>
+
+            <div class="section-title-container" style="margin-top: 30px;">
+                <h2 class="section-title-small" style="border-bottom-color: var(--arya-secondary);"><i class="fas fa-paw"></i> Datos de la Mascota</h2>
+            </div>
+
+            <div class="form-grid-3">
+                <div class="form-group">
+                    <label for="pet-name"><i class="fas fa-dog"></i> Nombre de la Mascota:</label>
+                    <input type="text" id="pet-name" required placeholder="Nombre de tu peludo">
+                </div>
+                <div class="form-group">
+                    <label for="pet-age"><i class="fas fa-calendar-alt"></i> Edad Mascota (Años):</label>
+                    <input type="number" id="pet-age" required min="0" max="30" placeholder="Edad en años">
+                </div>
+                <div class="form-group">
+                    <label for="pet-color"><i class="fas fa-palette"></i> Color:</label>
+                    <input type="text" id="pet-color" required placeholder="Ej: Café, blanco">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pet-type"><i class="fas fa-th-list"></i> Tipo de Mascota:</label>
+                <select id="pet-type" required class="custom-select">
+                    <option value="" disabled selected>Seleccione el tipo de mascota</option>
+                    <option value="Canino">Canino</option>
+                    <option value="Felino">Felino</option>
+                    <option value="Ave">Ave</option>
+                    <option value="Exotico">Exótico</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="button primary" style="background-color: var(--arya-secondary); margin-top: 30px; width: 100%;">
+                <i class="fas fa-save"></i> Registrar Propietario y Mascota
+            </button>
+        </form>
+
+        <a href="login.html" class="external-link">
+            <i class="fas fa-sign-in-alt"></i> Volver al Acceso
+        </a>
+    </div>
+
+    <div id="notification-modal" class="modal-overlay">
+        <div class="modal-content">
+            <i id="modal-icon" class="icon-large fas fa-check-circle"></i>
+            <h2 id="modal-title">¡Éxito!</h2>
+            <p id="modal-message">Mensaje del sistema.</p>
+            <button id="modal-close-btn" class="button primary">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="usuario.js"></script>
+</body>
+</html>
