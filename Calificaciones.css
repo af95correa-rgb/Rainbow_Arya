@@ -468,3 +468,61 @@
         font-size: 0.95em;
     }
 }
+
+/* --- Ajustes modal: scroll interno y X --- */
+#system-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#system-modal-backdrop[style*="display: flex"], #system-modal-backdrop.active {
+    display: flex;
+}
+
+#system-modal {
+    width: 100%;
+    max-width: 820px;
+    max-height: 80vh;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    padding: 18px 22px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenido con scroll si es muy largo */
+#modal-message {
+    overflow-y: auto;
+    max-height: calc(80vh - 160px); /* deja espacio para título y botones */
+    margin-top: 10px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Acciones (botones) al fondo */
+#modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Style básico del X si queda (JS ya lo inserta) */
+#system-modal .modal-close-x {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    color: #666;
+    cursor: pointer;
+}
