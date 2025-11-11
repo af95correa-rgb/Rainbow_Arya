@@ -82,7 +82,7 @@ const handleLogin = (e) => {
         // Determinar la página de redirección según el rol
         let redirectPage = 'index.html'; // Por defecto dashboard admin
         
-        if (user.role === 'Cliente') {
+        if (user.role === 'Usuario') {
             redirectPage = 'index.html'; // Portal de clientes
         }
         
