@@ -88,7 +88,7 @@ const handleFullRegistration = (e) => {
         id: getNextOwnerId(),
         username: email, // El email es el username de login
         password: password,
-        role: 'Cliente',
+        role: 'Usuario',
         name: name,
         lastname: lastname,
         age: parseInt(age),
