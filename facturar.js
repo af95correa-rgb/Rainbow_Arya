@@ -11,41 +11,76 @@ let itemRowCount = 0;
 // 1. INICIALIZACIÓN Y CONFIGURACIÓN DE UI
 // =================================================================
 
+
 /**
  * Rellena el selector principal de Cliente/Cita y configura la UI.
+ * Versión robusta sin optional chaining para evitar errores TS/JS.
  */
-const setupBillingOptions = () => {
+const setupBillingOptions = function() {
     const clientSelect = document.getElementById('client');
 
-    // Aseguramos que las funciones existan como fallback
-    const owners = typeof getOwners === 'function' ? getOwners() : [{
+    // Fallbacks seguros a las funciones de data.js
+    var owners = (typeof getOwners === 'function') ? getOwners() : [{
+        id: 'O000',
         name: 'Cliente de Prueba',
-        telefono: 'N/A'
+        lastname: '',
+        phone: 'N/A'
     }];
-    const appointments = typeof getAppointments === 'function' ? getAppointments() : [];
 
-    if (clientSelect) {
-        let optionsHtml = '<option value="" disabled selected>Seleccione Cliente o Cita</option>';
+    var appointments = (typeof getAppointments === 'function') ? getAppointments() : [];
 
-        // Clientes
-        optionsHtml += '<optgroup label="Clientes Registrados">';
-        owners.forEach(owner => {
-            optionsHtml += `<option value="O-${owner.name}">${owner.name} (${owner.telefono})</option>`;
-        });
-        optionsHtml += '</optgroup>';
+    if (!clientSelect) return;
 
-        // Citas Pendientes (se asocian para facturar)
-        optionsHtml += '<optgroup label="Citas Pendientes de Factura">';
-        appointments
-            .filter(a => a.estado === 'Pendiente') // Solo citas pendientes de atención/factura
-            .forEach(a => {
-                optionsHtml += `<option value="A-${a.id}">Cita ${a.id}: ${a.pet} (${a.owner})</option>`;
-            });
-        optionsHtml += '</optgroup>';
+    var optionsHtml = '<option value="" disabled selected>Seleccione Cliente o Cita</option>';
 
-        clientSelect.innerHTML = optionsHtml;
+    // Clientes registrados
+    optionsHtml += '<optgroup label="Clientes Registrados">';
+    for (var i = 0; i < owners.length; i++) {
+        var owner = owners[i] || {};
+        var nombre = (owner.name ? owner.name : 'Sin nombre');
+        var apellido = (owner.lastname ? ' ' + owner.lastname : '');
+        var fullName = (nombre + apellido).trim();
+        var telefono = (owner.phone ? owner.phone.trim() : '');
+        var label = telefono ? (fullName + ' (' + telefono + ')') : fullName;
+
+        // Valor único: preferimos id, sino username, sino email, sino el nombre
+        var valueId = owner.id || owner.username || owner.email || fullName;
+        optionsHtml += '<option value="O-' + valueId + '">' + escapeHtml(label) + '</option>';
     }
+    optionsHtml += '</optgroup>';
+
+    // Citas pendientes
+    optionsHtml += '<optgroup label="Citas Pendientes de Factura">';
+    for (var j = 0; j < appointments.length; j++) {
+        var a = appointments[j] || {};
+        // Aceptar citas que explícitamente estén pendientes o que no tengan estado definido
+        if (typeof a.estado === 'undefined' || a.estado === 'Pendiente') {
+            var cid = a.id || ('no-id-' + j);
+            var mascota = a.pet ? a.pet : 'Mascota desconocida';
+            var dueno = a.owner ? a.owner : 'Sin dueño';
+            var labelCita = 'Cita ' + cid + ': ' + mascota + ' (' + dueno + ')';
+            optionsHtml += '<option value="A-' + cid + '">' + escapeHtml(labelCita) + '</option>';
+        }
+    }
+    optionsHtml += '</optgroup>';
+
+    clientSelect.innerHTML = optionsHtml;
 };
+
+/**
+ * Pequeña función para escapar texto antes de inyectarlo en innerHTML
+ * (evita problemas con caracteres especiales o etiquetas).
+ */
+function escapeHtml(str) {
+    if (!str && str !== 0) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 
 
 // =================================================================
