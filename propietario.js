@@ -124,7 +124,7 @@ document.getElementById('assisted-registration-form').addEventListener('submit',
         email: document.getElementById('reg-email').value.trim(),
         username: document.getElementById('reg-email').value.trim(),
         password: document.getElementById('reg-password').value.trim(),
-        role: 'Cliente',
+        role: 'Usuario',
         registeredDate: new Date().toLocaleDateString(),
         isEnabled: true
     };
