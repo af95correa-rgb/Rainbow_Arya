@@ -39,8 +39,13 @@ const rolePermissions = {
     Usuario: {
         vistasBloqueadas: ['Resumen Rápido', 'Prioridades'],
         modulosPermitidos: ['Gestionar Citas', 'Calificaciones']
+    },
+    Cliente: {
+        vistasBloqueadas: ['Resumen Rápido', 'Prioridades'],
+        modulosPermitidos: ['Gestionar Citas', 'Calificaciones']
     }
 };
+
 
 function getRolePermissions(role) {
     return rolePermissions[role] || { vistasBloqueadas: [], modulosPermitidos: [] };
@@ -364,7 +369,7 @@ const saveCalificaciones = (calificaciones) => localStorage.setItem('vetCalifica
 const saveCalificacion = (calificacionData) => {
     let calificaciones = getCalificaciones();
     if (calificacionData.id) {
-        const index = calificaciones.findIndex(c => c.id === calificacionData.id);
+        const index = calificaciones.findIndex(c => c.id === calificacionData.id);s
         if (index !== -1) calificaciones[index] = calificacionData;
         else calificaciones.push(calificacionData);
     } else {
