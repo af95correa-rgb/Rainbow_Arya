@@ -1,4 +1,4 @@
-// --- login.js: Manejo de autenticación con MODAL ---
+/// --- login.js: Manejo de autenticación con MODAL ---
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('login-form').addEventListener('submit', handleLogin);
