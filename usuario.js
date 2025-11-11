@@ -1,32 +1,9 @@
 // --- usuario.js: Lógica del Módulo de Registro de Usuario y Mascota ---
 
 // ======================================================================
-// 0. SIMULACIÓN DE DATOS (Normalmente estaría en data.js)
+// 1. LÓGICA DE MODAL
 // ======================================================================
 
-// Inicializar la lista de Propietarios si aún no existe
-if (typeof window.clientOwners === 'undefined') {
-    window.clientOwners = [
-        { username: 'propietario1@email.com', password: 'password', role: 'Cliente', name: 'Carlos', lastname: 'Ruiz', phone: '+57 300 123 4567', age: 45, isEnabled: true }
-    ];
-}
-
-// Inicializar la lista de Mascotas si aún no existe
-if (typeof window.pets === 'undefined') {
-    window.pets = [
-        { id: 'P001', name: 'Rocky', ownerUsername: 'propietario1@email.com', species: 'Canino', age: 3, color: 'Marrón' }
-    ];
-}
-
-// Simulación de generadores de ID
-const getNextOwnerId = () => {
-    return 'O' + (window.clientOwners.length + 1).toString().padStart(3, '0');
-};
-const getNextPetId = () => {
-    return 'P' + (window.pets.length + 1).toString().padStart(3, '0');
-};
-
-// Lógica de Modal (Reutilizada de portal_propietario.js)
 const showModal = (title, message, isSuccess = true, callback = null) => {
     const modal = document.getElementById('notification-modal');
     const titleElement = document.getElementById('modal-title');
@@ -62,9 +39,8 @@ const closeModal = () => {
     document.getElementById('notification-modal').style.display = 'none';
 }
 
-
 // ======================================================================
-// 1. MANEJO DEL FORMULARIO
+// 2. MANEJO DEL FORMULARIO DE REGISTRO
 // ======================================================================
 
 const handleFullRegistration = (e) => {
@@ -94,18 +70,20 @@ const handleFullRegistration = (e) => {
         return;
     }
     
-    if (window.clientOwners.find(c => c.username === email)) {
+    // Obtener propietarios actuales desde localStorage
+    let owners = getOwners();
+    
+    // Verificar si ya existe el usuario
+    if (owners.find(c => c.username === email)) {
         showModal(
             'Usuario Duplicado', 
-            `❌ Ya existe una cuenta registrada con el correo: ${email}.`, 
+            `Ya existe una cuenta registrada con el correo: ${email}.`, 
             false
         );
         return;
     }
 
-    // 4. Lógica de Registro (Simulación de guardar en DB/localStorage)
-    
-    // Crear objeto Propietario
+    // 4. Crear objeto Propietario
     const newOwner = {
         id: getNextOwnerId(),
         username: email, // El email es el username de login
@@ -116,24 +94,34 @@ const handleFullRegistration = (e) => {
         age: parseInt(age),
         email: email,
         phone: phone,
+        registeredDate: new Date().toLocaleDateString('es-CO'),
         isEnabled: true
     };
 
-    // Crear objeto Mascota
+    // 5. Crear objeto Mascota
     const newPet = {
         id: getNextPetId(),
         name: petName,
         ownerUsername: email, // Se vincula al propietario por su username
         species: petType,
         age: parseInt(petAge),
-        color: petColor
+        color: petColor,
+        breed: '',
+        birthDate: '',
+        historialClinico: [] // Campo para historial clínico
     };
 
-    // Guardar los datos simulados
-    window.clientOwners.push(newOwner);
-    window.pets.push(newPet);
+    // 6. Guardar los datos en localStorage
+    owners.push(newOwner);
+    saveOwners(owners);
+    
+    let pets = getPets();
+    pets.push(newPet);
+    savePets(pets);
 
-    // 5. Redirección y Notificación de Éxito
+    console.log('✅ Registro exitoso:', { owner: newOwner, pet: newPet });
+
+    // 7. Redirección y Notificación de Éxito
     const redirectToLogin = () => {
         closeModal();
         window.location.href = 'login.html'; 
@@ -141,19 +129,37 @@ const handleFullRegistration = (e) => {
 
     showModal(
         '¡Registro Exitoso!', 
-        `🎉 ¡Bienvenido **${name}**! Tu cuenta y tu mascota **${petName}** han sido registradas. Usa tu correo (${email}) para acceder.`, 
+        `🎉 ¡Bienvenido ${name}! Tu cuenta y tu mascota ${petName} han sido registradas. Usa tu correo (${email}) para acceder.`, 
         true,
         redirectToLogin
     );
 }
 
 // ======================================================================
-// 2. INICIALIZACIÓN
+// 3. INICIALIZACIÓN
 // ======================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('full-registration-form').addEventListener('submit', handleFullRegistration);
+    // Verificar que data.js esté cargado
+    if (typeof getOwners !== 'function') {
+        console.error('❌ ERROR: data.js no se ha cargado correctamente');
+        alert('Error: No se pudo cargar el sistema de datos. Por favor recarga la página.');
+        return;
+    }
+    
+    console.log('✅ Sistema de registro inicializado correctamente');
+    
+    // Configurar el formulario
+    const form = document.getElementById('full-registration-form');
+    if (form) {
+        form.addEventListener('submit', handleFullRegistration);
+    } else {
+        console.error('❌ No se encontró el formulario de registro');
+    }
     
     // Configurar el botón de cerrar modal
-    document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+    const closeBtn = document.getElementById('modal-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
 });
