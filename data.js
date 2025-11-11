@@ -190,7 +190,8 @@ const showSystemModal = (title, message, isConfirm = false, color = 'var(--arya-
         const modalMessage = document.getElementById('modal-message');
         const modalActions = document.getElementById('modal-actions');
 
-        if (!backdrop || !modal) {
+        // Validar existencia de elementos
+        if (!backdrop || !modal || !modalTitle || !modalMessage || !modalActions) {
             console.error("Error: Elementos del modal no encontrados en el DOM.");
             if (isConfirm) resolve(window.confirm(message));
             else { alert(message); resolve(true); }
@@ -198,34 +199,67 @@ const showSystemModal = (title, message, isConfirm = false, color = 'var(--arya-
             return;
         }
 
+        // Reset contenido y estilos
         modalActions.innerHTML = '';
         modalTitle.textContent = title;
-        modalMessage.innerHTML = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        modalMessage.innerHTML = String(message)
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\n/g, '<br>');
         modal.style.borderTop = `5px solid ${color}`;
 
+        // Botones
         const btnAccept = document.createElement('button');
         btnAccept.className = 'button primary';
         btnAccept.textContent = isConfirm ? 'Aceptar' : 'Cerrar';
-        btnAccept.addEventListener('click', () => {
-            backdrop.style.display = 'none';
-            resolve(true);
-            if (callback) callback();
-        }, { once: true });
         modalActions.appendChild(btnAccept);
 
+        let btnCancel = null;
         if (isConfirm) {
-            const btnCancel = document.createElement('button');
+            btnCancel = document.createElement('button');
             btnCancel.className = 'button danger';
             btnCancel.textContent = 'Cancelar';
-            btnCancel.addEventListener('click', () => {
-                backdrop.style.display = 'none';
-                resolve(false);
-            }, { once: true });
             modalActions.prepend(btnCancel);
         }
+
+        // Mostrar modal
         backdrop.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        const previouslyFocused = document.activeElement;
+
+        // --- Handlers ---
+        const keyHandler = (e) => {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                e.preventDefault();
+                cleanup(isConfirm ? false : true);
+            }
+        };
+
+        const backdropClickHandler = (e) => {
+            if (e.target === backdrop) {
+                cleanup(isConfirm ? false : true);
+            }
+        };
+
+        document.addEventListener('keydown', keyHandler);
+        backdrop.addEventListener('click', backdropClickHandler);
+
+        btnAccept.addEventListener('click', () => cleanup(true), { once: true });
+        if (btnCancel) btnCancel.addEventListener('click', () => cleanup(false), { once: true });
+
+        function cleanup(result) {
+            backdrop.style.display = 'none';
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', keyHandler);
+            backdrop.removeEventListener('click', backdropClickHandler);
+            if (previouslyFocused && previouslyFocused.focus) previouslyFocused.focus();
+            if (callback) callback();
+            resolve(result);
+        }
     });
 };
+
+
 
 // =================================================================
 // 6. DATOS DE CITAS Y MASCOTAS
