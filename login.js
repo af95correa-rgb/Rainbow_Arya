@@ -83,7 +83,7 @@ const handleLogin = (e) => {
         let redirectPage = 'index.html'; // Por defecto dashboard admin
         
         if (user.role === 'Cliente') {
-            redirectPage = 'portal_propietario.html'; // Portal de clientes
+            redirectPage = 'index.html'; // Portal de clientes
         }
         
         // Función de redirección para el callback del modal
