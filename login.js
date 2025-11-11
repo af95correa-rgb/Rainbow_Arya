@@ -56,33 +56,63 @@ const handleLogin = (e) => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
     
-    // OBTENER LA LISTA DE USUARIOS (FUNCIÓN AHORA DEFINIDA EN data.js)
-    const users = getUsers(); 
+    console.log('🔐 Intentando login con:', username);
     
-    // Buscar al usuario
-    const user = users.find(u => u.username === username && u.password === password);
+    // 1️⃣ BUSCAR EN USUARIOS DEL SISTEMA (Admin, Recepcionista, etc.)
+    const systemUsers = getUsers(); 
+    let user = systemUsers.find(u => u.username === username && u.password === password);
+    
+    if (user) {
+        console.log('✅ Usuario del sistema encontrado:', user.role);
+    } else {
+        // 2️⃣ BUSCAR EN CLIENTES/PROPIETARIOS REGISTRADOS
+        const owners = getOwners();
+        user = owners.find(o => 
+            (o.username === username || o.email === username) && 
+            o.password === password &&
+            o.isEnabled === true
+        );
+        
+        if (user) {
+            console.log('✅ Cliente encontrado:', user.name);
+        }
+    }
 
     if (user) {
+        // Determinar la página de redirección según el rol
+        let redirectPage = 'index.html'; // Por defecto dashboard admin
+        
+        if (user.role === 'Cliente') {
+            redirectPage = 'portal_propietario.html'; // Portal de clientes
+        }
+        
         // Función de redirección para el callback del modal
         const redirectToDashboard = () => {
             closeModal();
-            window.location.href = 'index.html';
+            window.location.href = redirectPage;
         };
 
-        // Autenticación exitosa
-        sessionStorage.setItem('userRole', user.role); 
+        // Guardar sesión completa
+        sessionStorage.setItem('userRole', user.role);
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        sessionStorage.setItem('userName', user.name || user.username);
+        sessionStorage.setItem('userEmail', user.email || user.username);
         
         // Mostrar modal de éxito 
         showModal(
             '¡Acceso Exitoso!', 
-            `Bienvenido(a) al Dashboard de ${user.role}.`, 
+            `Bienvenido(a) ${user.name || user.username} al sistema ARYA.`, 
             true,
             redirectToDashboard // Redirigir al presionar Aceptar
         );
 
     } else {
         // Autenticación fallida
-        // Mostrar modal de error
-        showModal('Error de Acceso', 'Usuario o contraseña incorrectos. Por favor, intente de nuevo.', false);
+        console.log('❌ Credenciales incorrectas');
+        showModal(
+            'Error de Acceso', 
+            'Usuario o contraseña incorrectos. Por favor, intente de nuevo.', 
+            false
+        );
     }
 };
