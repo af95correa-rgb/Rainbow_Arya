@@ -1,0 +1,470 @@
+/* --- agendar.css: Estilos específicos para el Módulo de Agendamiento --- */
+
+/* ==========================================
+   1. LAYOUT PRINCIPAL (GRID)
+   ========================================== */
+.agendar-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 30px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+/* ==========================================
+   2. ESTILOS AUXILIARES
+   ========================================== */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.intro-text {
+    margin-bottom: 30px;
+    color: #555;
+    font-size: 1.05em;
+}
+
+.section-subtitle {
+    border-bottom: 2px solid var(--arya-secondary);
+    font-size: 1.3em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    color: var(--arya-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-subtitle i {
+    color: var(--arya-secondary);
+}
+
+/* ==========================================
+   3. ESTILOS DE FORMULARIOS
+   ========================================== */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--arya-dark);
+    font-size: 0.95em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: var(--arya-dark);
+    font-family: var(--font-body);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--arya-primary);
+    box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* Grid de 2 columnas para fecha y hora */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+/* ==========================================
+   4. ESTILOS DE SELECTS
+   ========================================== */
+.form-container-card select,
+.form-container-card .custom-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: var(--arya-dark);
+    font-family: var(--font-body);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%238e44ad" d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-container-card select:hover,
+.form-container-card .custom-select:hover {
+    border-color: var(--arya-primary);
+}
+
+.form-container-card select:focus,
+.form-container-card .custom-select:focus {
+    outline: none;
+    border-color: var(--arya-primary);
+    box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+}
+
+/* ==========================================
+   5. TARJETAS DEL LAYOUT
+   ========================================== */
+.form-container-card {
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lift);
+    border-top: 5px solid var(--arya-blue);
+    position: sticky;
+    top: 100px;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-container-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.form-container-card h2 {
+    color: var(--arya-dark);
+    font-size: 1.5em;
+    font-weight: 700;
+    padding-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--arya-blue);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-container-card h2 i {
+    color: var(--arya-blue);
+}
+
+.appointments-list-card {
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    border-top: 5px solid var(--arya-secondary);
+    transition: box-shadow 0.3s ease;
+}
+
+.appointments-list-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.appointments-list-card h2 {
+    color: var(--arya-dark);
+    font-size: 1.5em;
+    font-weight: 700;
+    padding-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--arya-secondary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.appointments-list-card h2 i {
+    color: var(--arya-secondary);
+}
+
+/* ==========================================
+   6. TABLA DE DATOS
+   ========================================== */
+.data-table-container {
+    overflow-x: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.data-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+    background-color: white;
+}
+
+.data-table-container th {
+    background: linear-gradient(135deg, var(--arya-light) 0%, #e8f0f5 100%);
+    color: var(--arya-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 2px solid var(--arya-secondary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.data-table-container td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e8e8e8;
+    color: #555;
+}
+
+.data-table-container tbody tr {
+    transition: all 0.2s ease;
+}
+
+.data-table-container tbody tr:hover {
+    background-color: #f8fcff;
+    transform: scale(1.005);
+    box-shadow: 0 2px 8px rgba(46, 204, 113, 0.1);
+}
+
+.data-table-container tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ==========================================
+   7. ESTADOS DE CITAS
+   ========================================== */
+.estado-pendiente {
+    color: #e67e22;
+    font-weight: 700;
+    padding: 4px 12px;
+    background-color: rgba(230, 126, 34, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
+.estado-confirmada {
+    color: #3498db;
+    font-weight: 700;
+    padding: 4px 12px;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
+.estado-completada {
+    color: var(--arya-secondary);
+    font-weight: 700;
+    padding: 4px 12px;
+    background-color: rgba(46, 204, 113, 0.1);
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
+/* ==========================================
+   8. BOTONES DE ACCIÓN
+   ========================================== */
+.action-group {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.icon-button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+}
+
+.icon-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.icon-button.edit {
+    background-color: var(--arya-primary);
+}
+
+.icon-button.edit:hover {
+    background-color: #7d3c98;
+}
+
+.icon-button.complete {
+    background-color: var(--arya-secondary);
+}
+
+.icon-button.complete:hover {
+    background-color: #27ae60;
+}
+
+.icon-button.delete {
+    background-color: var(--danger-color);
+}
+
+.icon-button.delete:hover {
+    background-color: #c0392b;
+}
+
+/* ==========================================
+   9. BOTONES DEL FORMULARIO
+   ========================================== */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.button-group button {
+    flex: 1;
+    min-width: 140px;
+}
+
+.form-actions {
+    margin-top: 40px;
+    justify-content: space-between;
+}
+
+/* ==========================================
+   10. ESTADO DE CARGA
+   ========================================== */
+.loading-state {
+    text-align: center;
+    color: #777;
+    padding: 40px 20px;
+}
+
+.loading-state i {
+    font-size: 3em;
+    color: var(--arya-secondary);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.loading-state p {
+    font-size: 1.05em;
+    margin: 0;
+}
+
+/* ==========================================
+   11. RESPONSIVE DESIGN (MEJORADO)
+   ========================================== */
+
+/* Mejora de la relación de columnas y espaciado en pantallas medianas */
+@media (max-width: 1200px) {
+    .agendar-layout {
+        grid-template-columns: 45% 1fr;
+        gap: 25px;
+        /* Reducción de gap para pantallas medianas (de 30px a 25px) */
+    }
+}
+
+/* Colapsar la grilla y desactivar el sticky en tablets */
+@media (max-width: 1000px) {
+    .agendar-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        /* Reducción de gap para apilamiento vertical */
+    }
+
+    .form-container-card {
+        position: static !important;
+        /* Usamos !important para asegurar que se desactive el sticky: top: 100px; */
+        top: auto;
+    }
+}
+
+/* Teléfonos y tablets pequeñas */
+@media (max-width: 768px) {
+
+    .form-container-card,
+    .appointments-list-card {
+        padding: 20px;
+    }
+
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .data-table-container {
+        font-size: 0.9em;
+    }
+
+    .data-table-container th,
+    .data-table-container td {
+        padding: 10px 8px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        width: 100%;
+    }
+
+    .action-group {
+        justify-content: center;
+    }
+
+    .icon-button {
+        padding: 5px 8px;
+        font-size: 0.85em;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    .data-table-container {
+        font-size: 0.85em;
+    }
+
+    .estado-pendiente,
+    .estado-confirmada,
+    .estado-completada {
+        font-size: 0.8em;
+        padding: 3px 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.95em;
+    }
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Gestión de Inventario</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inventario.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    
+    <header class="app-header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 0;">
+            <div class="logo-container">
+                <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+                <h1 style="color: var(--header-text);">Sistema de Gestión ARYA</h1>
+            </div>
+            <div class="nav-links">
+
+                <button id="back-to-dashboard-btn" class="button" onclick="location.href='index.html'">
+                    <i class="fas fa-home"></i> Volver al Dashboard
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="container">
+            
+            <h1 class="rainbow-text"><i class="fas fa-boxes"></i> Gestión de Inventario</h1>
+            <p style="margin-bottom: 30px;">Registre, actualice y monitoree el stock de productos y suministros.</p>
+
+            <div class="inventario-layout">
+
+                <div class="form-container-card">
+                    <h2 style="border-bottom-color: var(--arya-primary); font-size: 1.5em; margin-top: 0;"><i class="fas fa-box-open"></i> Producto Nuevo / Editar</h2>
+                    <form id="product-form">
+                        
+                        <input type="hidden" id="product-id" value=""> 
+
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-tag icon-label"></i> Nombre del Producto:</label>
+                            <input type="text" id="name" required placeholder="Ej: Vacuna Triple Felina, Royal Canin 1kg">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category"><i class="fas fa-list icon-label"></i> Categoría:</label>
+                            <select id="category" class="custom-select" required>
+                                <option value="">Cargando categorías...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="quantity"><i class="fas fa-cubes icon-label"></i> Existencias:</label>
+                                <input type="number" id="quantity" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="price"><i class="fas fa-dollar-sign icon-label"></i> Precio de Venta:</label>
+                                <input type="number" id="price" min="0" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supplier"><i class="fas fa-truck icon-label"></i> Proveedor:</label>
+                            <input type="text" id="supplier" placeholder="Ej: Distribuidora Veterinaria S.A.">
+                        </div>
+
+                        <div class="button-group" style="margin-top: 40px; justify-content: space-between;">
+                            <button type="button" class="button btn-limpiar" onclick="document.getElementById('product-form').reset(); resetFormUI();">
+                                <i class="fas fa-trash-restore"></i> Limpiar
+                            </button>
+                            <button type="submit" class="button btn-guardar">
+                                <i class="fas fa-save"></i> Guardar Producto
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="inventory-table-card">
+                    <h2 style="font-size: 1.5em; margin-top: 0;"><i class="fas fa-search-location"></i> Existencias en Bodega</h2>
+                    <div id="inventory-list" class="data-table-container">
+                        <p style="text-align: center; color: #777; padding: 20px;">Cargando inventario...</p>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna 
+            </p>
+        </div>
+    </footer>
+
+<div id="system-modal-backdrop" class="system-modal-backdrop">
+    <div id="system-modal" class="system-modal-content">
+        <h3 id="modal-title"></h3>
+        <p id="modal-message"></p>
+        <div id="modal-actions" class="button-group" style="justify-content: flex-end; margin-top: 20px;">
+            </div>
+    </div>
+</div>
+
+<script src="data.js"></script>
+<script src="inventario.js"></script>
+</body>
+</html>

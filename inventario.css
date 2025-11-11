@@ -1,0 +1,139 @@
+/* --- inventario.css: Estilos específicos para el Módulo de Inventario --- */
+
+/* 1. LAYOUT PRINCIPAL (GRID) */
+.inventario-layout {
+    display: grid;
+    /* Usamos porcentaje y fraccion para flexibilidad/responsividad */
+    grid-template-columns: 30% 1fr; 
+    gap: 30px; 
+    align-items: start; 
+    margin-top: 20px;
+}
+
+@media (max-width: 1000px) {
+    .inventario-layout {
+        /* Fuerza a los elementos a apilarse verticalmente */
+        grid-template-columns: 1fr; 
+    }
+    
+    /* CORRECCIÓN FINAL: Desactivar sticky **y** asegurar que no hay posiciones anómalas */
+    .form-container-card {
+        position: static !important; /* !important es para asegurar que anula la regla de escritorio */
+        top: auto; 
+    }
+    
+    .inventory-table-card {
+        margin-top: 20px;
+        /* Aseguramos que la tabla ocupe todo el ancho disponible */
+        width: 100%; 
+    }
+}
+
+
+/* 2. ESTILO AVANZADO DEL SELECT (PERSONALIZADO CON COLORES ARYA) */
+.form-container-card select, 
+.form-container-card .custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Aplicar color principal de ARYA y texto blanco */
+    background-color: #3e4d5a; /* Fondo Púrpura */
+    color: white;
+    border: 1px solid #5a6e80;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    
+    /* Flecha SVG BLANCA (%23ffffff) para contraste en fondo oscuro */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ffffff" d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    
+    /* Posición ajustada */
+    background-position: right 10px center; 
+    padding-right: 30px; 
+    cursor: pointer;
+}
+
+/* Estilo para las opciones dentro del dropdown (neutras) */
+.form-container-card select option {
+    background-color: var(--card-bg); 
+    color: var(--arya-dark);
+    font-weight: normal;
+}
+
+
+/* 3. AJUSTE DE TARJETAS DENTRO DEL LAYOUT */
+.form-container-card {
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lift); 
+    border-top: 5px solid var(--arya-primary); 
+    position: sticky; 
+    top: 100px; 
+}
+
+.inventory-table-card {
+    padding: 25px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+    border-top: 5px solid var(--arya-accent);
+}
+
+/* --- ESTILOS PROPIOS Y COMPACTOS PARA LOS BOTONES DEL FORMULARIO --- */
+
+/* 1. Estilo para el Botón Limpiar (Danger Compacto) */
+.form-container-card .btn-limpiar {
+    background-color: var(--danger-color); 
+    color: white;
+    padding: 8px 15px; /* Compacto */
+    font-size: 0.9em; /* Compacto */
+    border-radius: 8px;
+}
+
+/* 2. Estilo para el Botón Guardar Producto (Primary Compacto) */
+.form-container-card .btn-guardar {
+    background-color: var(--arya-primary);
+    color: white;
+    padding: 8px 15px; /* Compacto */
+    font-size: 0.9em; /* Compacto */
+    border-radius: 8px;
+}
+
+/* 4. Estilos de la tabla */
+.data-table-container {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+.data-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.data-table-container th, .data-table-container td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.data-table-container th {
+    background-color: var(--arya-light);
+    color: var(--arya-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+/* Estilo para botones pequeños dentro de las celdas de la tabla (Editar/Eliminar) */
+.button.small {
+    padding: 5px 10px;
+    font-size: 0.8em;
+    margin: 0 2px;
+    border-radius: 6px;
+}
+
+/* 5. Títulos de las tarjetas */
+.inventory-table-card h2 {
+    border-bottom-color: var(--arya-accent);
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARYA - Generar Facturas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="facturar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="RAINBOW_ARYA_LOGO.png" alt="Logo ARYA Veterinary System" class="arya-logo">
+                <h1 class="rainbow-text">Veterinaria Rainbow ARYA</h1>
+            </div>
+            <nav class="nav-links">
+                <button id="back-to-dashboard-btn" class="button" onclick="location.href='index.html'">
+                    <i class="fas fa-home"></i>
+                    Volver al Dashboard
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+
+            <h1 class="rainbow-text">
+                <i class="fas fa-money-check-alt"></i>
+                Generar Factura
+            </h1>
+            <p class="intro-text">Cree, edite y revise las facturas pendientes de pago.</p>
+
+            <!-- LAYOUT PRINCIPAL: FORMULARIO + HISTORIAL -->
+            <div class="facturar-layout">
+
+                <!-- PANEL IZQUIERDO: FORMULARIO DE FACTURACIÓN -->
+                <aside class="form-container-card">
+                    <h2>
+                        <i class="fas fa-plus-circle"></i>
+                        Nueva Transacción
+                    </h2>
+                    
+                    <form id="billing-form">
+
+                        <!-- SELECCIÓN DE CLIENTE -->
+                        <div class="form-group">
+                            <label for="client">
+                                <i class="fas fa-user icon-label"></i>
+                                Cliente / Cita Asociada:
+                            </label>
+                            <select id="client" class="custom-select" required>
+                                <option value="" disabled selected>Seleccione Cliente o Cita</option>
+                                <!-- Opciones cargadas dinámicamente -->
+                            </select>
+                        </div>
+
+                        <!-- SECCIÓN DE PRODUCTOS Y SERVICIOS -->
+                        <h3 class="section-title-small">
+                            <i class="fas fa-cart-plus"></i>
+                            Productos y Servicios
+                        </h3>
+                        
+                        <div id="items-list" class="items-container">
+                            <!-- Items dinámicos se agregan aquí -->
+                        </div>
+                        
+                        <button 
+                            type="button" 
+                            class="button secondary btn-add-item" 
+                            id="add-item-btn">
+                            <i class="fas fa-plus"></i>
+                            Añadir Item
+                        </button>
+
+                        <!-- TOTAL A PAGAR -->
+                        <div class="form-group total-section">
+                            <label for="total-amount">
+                                <i class="fas fa-calculator icon-label"></i>
+                                Total a Pagar:
+                            </label>
+                            <input 
+                                type="text" 
+                                id="total-amount" 
+                                value="$ 0.00" 
+                                readonly 
+                                class="total-input">
+                        </div>
+
+                        <!-- BOTONES DE ACCIÓN -->
+                        <div class="button-group form-actions">
+                            <button type="button" class="button danger" id="cancel-btn">
+                                <i class="fas fa-trash-restore"></i>
+                                Cancelar
+                            </button>
+                            <button type="submit" class="button primary">
+                                <i class="fas fa-check"></i>
+                                Emitir Factura
+                            </button>
+                        </div>
+                    </form>
+                </aside>
+
+                <!-- PANEL DERECHO: HISTORIAL DE FACTURAS -->
+                <section class="appointments-list-card">
+                    <h2>
+                        <i class="fas fa-history"></i>
+                        Historial de Facturas
+                    </h2>
+                    
+                    <div id="invoices-list" class="data-table-container">
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Cargando historial de facturas...</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>
+                &copy; 2025 Veterinaria Rainbow ARYA | Sistema de Gestión Interna 
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL DEL SISTEMA -->
+    <div id="system-modal-backdrop" class="system-modal-backdrop">
+        <div id="system-modal" class="system-modal-content">
+            <h3 id="modal-title">Título del Modal</h3>
+            <p id="modal-message">Mensaje del sistema</p>
+            <div id="modal-actions" class="modal-actions">
+                <!-- Botones del modal cargados dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="data.js"></script>
+    <script src="facturar.js"></script>
+</body>
+
+</html>
