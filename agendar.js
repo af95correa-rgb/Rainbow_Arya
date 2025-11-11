@@ -12,14 +12,13 @@ let editingAppointmentId = null;
 
 /**
  * Rellena los selectores de Veterinario, Tipo de Servicio y Propietario.
+ * Adaptado a tu data.js en español (usa nombre, telefono, etc.)
  */
 const setupFormOptions = () => {
-    // IDs de los selectores en el formulario de Nueva Cita
     const vetSelect = document.getElementById('veterinarian'); 
     const tipoServicioSelect = document.getElementById('type'); 
     const ownerSelect = document.getElementById('owner'); 
     
-    // Función de ayuda para poblar selectores
     const populateSelect = (selectElement, list, valueKey, textKey, initialText) => {
         if (selectElement) {
             let optionsHtml = `<option value="" disabled selected>${initialText}</option>`;
@@ -31,22 +30,49 @@ const setupFormOptions = () => {
         }
     };
 
+    // ============================
     // 1. Veterinarios
-    const veterinariansList = typeof veterinarians !== 'undefined' ? veterinarians : [];
-    populateSelect(vetSelect, veterinariansList, 'nombre', 'nombre', 'Seleccione un Veterinario');
+    // ============================
+    const veterinariansList = typeof veterinarios !== 'undefined' ? veterinarios : [];
+    populateSelect(
+        vetSelect,
+        veterinariansList,
+        'nombre',
+        (v) => v.nombre ? `${v.nombre}${v.telefono ? ' (' + v.telefono + ')' : ''}` : 'Sin nombre',
+        'Seleccione un Veterinario'
+    );
 
+    // ============================
     // 2. Servicios
+    // ============================
     const servicesList = typeof servicios !== 'undefined' ? servicios : [];
-    populateSelect(tipoServicioSelect, servicesList, 'nombre', 
-                   (s) => `${s.nombre} (${s.duracion})`, 'Seleccione Tipo de Servicio');
+    populateSelect(
+        tipoServicioSelect,
+        servicesList,
+        'nombre',
+        (s) => s.nombre ? `${s.nombre}${s.duracion ? ' (' + s.duracion + ')' : ''}` : 'Sin nombre',
+        'Seleccione Tipo de Servicio'
+    );
     
+    // ============================
     // 3. Propietarios
+    // ============================
     if (typeof getOwners === 'function') {
         const ownersList = getOwners();
-        populateSelect(ownerSelect, ownersList, 'name', 
-                       (o) => `${o.name} (${o.telefono})`, 'Buscar Propietario');
+        populateSelect(
+            ownerSelect,
+            ownersList,
+            'name',
+            (o) => {
+                const fullName = `${o.name || 'Sin nombre'}${o.lastname ? ' ' + o.lastname : ''}`;
+                return o.phone ? `${fullName} (${o.phone})` : fullName;
+            },
+            'Buscar Propietario'
+        );
     }
 };
+
+
 
 /**
  * Renderiza la lista de citas agendadas en la tabla.
